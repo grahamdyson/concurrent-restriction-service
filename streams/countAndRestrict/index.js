@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports =
-	(/** @type {import("./Parameter.d")} */{
+	(/** @type {import("./Parameter")} */{
 		currentIdentifiers,
 		identifierToWatch,
 		maximumCount,
