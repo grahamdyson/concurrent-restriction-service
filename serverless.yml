@@ -1,7 +1,16 @@
 functions:
-  streams:
+  streams-delete:
     handler:
-      streams/api.handle
+      streams/api/delete.handle
+    events:
+      - http:
+          authorizer: aws_iam
+          path: streams/{identifier}
+          method: delete
+          request: { parameters: { paths: { identifier: true } } }
+  streams-post:
+    handler:
+      streams/api/post.handle
     events:
       - http:
           authorizer: aws_iam
