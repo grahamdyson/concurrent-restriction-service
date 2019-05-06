@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "cspell": "3.2.8"
+  },
+  "scripts": {
+    "spellcheck": "find -type f \\( -name \"*.js\" -or -name \"*.md\" \\) ! -path \"./node_modules/**/*\" -exec npx cspell --config cspell.json {} +"
+  }
+}
