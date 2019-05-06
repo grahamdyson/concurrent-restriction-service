@@ -1,0 +1,15 @@
+functions:
+  streams:
+    handler:
+      streams/api.handle
+    events:
+      - http:
+          authorizer: aws_iam
+          path: streams/{identifier}
+          method: post
+provider:
+  memorySize: 256
+  name: aws
+  runtime: nodejs8.10
+service:
+  concurrent-restriction-service

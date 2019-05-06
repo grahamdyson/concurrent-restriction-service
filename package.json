@@ -1,27 +1,33 @@
 {
- "devDependencies": {
-  "@types/jest": "24.0.12",
-  "cspell": "3.2.8",
-  "eslint": "5.16.0",
-  "jest": "24.8.0",
-  "typescript": "3.4.5"
- },
- "jest": {
-  "collectCoverage": true,
-  "coverageDirectory": "test-coverage",
-  "coverageThreshold": {
-   "global": {
-    "branches": 100,
-    "functions": 100,
-    "lines": 100
-   }
-  }
- },
- "scripts": {
-  "all": "npm run spellcheck && npm run lint && npm run typescript && npm run test",
-  "lint": "npx eslint .",
-  "spellcheck": "find -type f \\( -name \"*.js\" -or -name \"*.md\" -or -name \"*.d.ts\" \\) ! -path \"./test-coverage/**/*\" ! -path \"./node_modules/**/*\" -exec npx cspell --config cspell.json {} +",
-  "test": "npx jest",
-  "typescript": "npx tsc -p jsconfig.json"
- }
+	"devDependencies": {
+		"@types/aws-lambda": "8.10.25",
+		"@types/jest": "24.0.12",
+		"cspell": "3.2.8",
+		"eslint": "5.16.0",
+		"jest": "24.8.0",
+		"typescript": "3.4.5"
+	},
+	"jest": {
+		"collectCoverage": true,
+		"collectCoverageFrom": [
+			"**/*.js",
+			"!node_modules/**",
+			"!test-coverage/**"
+		],
+		"coverageDirectory": "test-coverage",
+		"coverageThreshold": {
+			"global": {
+				"branches": 100,
+				"functions": 100,
+				"lines": 100
+			}
+		}
+	},
+	"scripts": {
+		"all": "npm run spellcheck && npm run lint && npm run typescript && npm run test",
+		"lint": "npx eslint .",
+		"spellcheck": "find -type f \\( -name \"*.js\" -or -name \"*.md\" -or -name \"*.d.ts\" \\) ! -path \"./test-coverage/**/*\" ! -path \"./node_modules/**/*\" -exec npx cspell --config cspell.json {} +",
+		"test": "npx jest",
+		"typescript": "npx tsc -p jsconfig.json"
+	}
 }
