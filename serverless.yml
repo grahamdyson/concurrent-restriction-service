@@ -12,5 +12,37 @@ provider:
   memorySize: 256
   name: aws
   runtime: nodejs8.10
+resources:
+  Resources:
+    DynamoDbUserStreamsTable:
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: userIdentifier
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userIdentifier
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
+        TableName:
+            userStreams
+      Type:
+        AWS::DynamoDB::Table
+    DynamoDBIamPolicy:
+      DependsOn:
+          DynamoDbUserStreamsTable
+      Properties:
+        PolicyName: lambda-dynamodb
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action: [ dynamodb:GetItem, dynamodb:PutItem ]
+              Resource: arn:aws:dynamodb:*:*:table/userStreams
+        Roles:
+          - Ref: IamRoleLambdaExecution
+      Type:
+        AWS::IAM::Policy
 service:
   concurrent-restriction-service

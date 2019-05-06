@@ -1,4 +1,7 @@
 {
+	"dependencies": {
+		"aws-sdk": "2.449.0"
+	},
 	"devDependencies": {
 		"@types/aws-lambda": "8.10.25",
 		"@types/jest": "24.0.12",
