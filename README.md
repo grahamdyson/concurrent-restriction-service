@@ -7,6 +7,8 @@ This service counts and restricts the number of concurrent video streams being w
 
 The API is made available over HTTP using [AWS Lambda](https://aws.amazon.com/lambda/) / [Serverless](https://serverless.com/). To test, install and setup credentials for Serverless, and deploy ([instructions](https://serverless.com/framework/docs/providers/aws/guide/)).
 
+The user is inferred from the HTTP authorization header. This limitation might cause problems if this service is a client of another service and the HTTP authorization is a service account representing multiple actual users (e.g. customers). This could be mitigated by allowing a user to be specified in addition to that inferred from the HTTP authorization.
+
 Clients must provide unique identifiers for the video streams. This means multiple request can be made for the same user and stream, but each stream only be counted as one towards the users maximum.
 
 Only the following URI is available and requests to it must include the stream identifier.
