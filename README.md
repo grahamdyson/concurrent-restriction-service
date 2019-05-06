@@ -19,4 +19,4 @@ Only the following URI is available and requests to it must include the stream i
 
 Counting and restriction is performed using a single HTTP request with the POST method/verb. The response will have a 403 status code if the request would exceeded the maximum count for that user. The requesting client can then restrict (e.g. block the video stream) based on the response status code.
 
-When a stream is no longer being watched the client must use the DELETE method/verb to reduce the count and potentially avoid other streams being unnecessarily restricted.
+When a stream is no longer being watched the client must use the DELETE method/verb to reduce the count and potentially avoid other streams being unnecessarily restricted. This reliance on correct client behavior could be mitigated by recording the when each stream was last counted and excluding those older than a certain age.
