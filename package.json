@@ -12,6 +12,7 @@
 		"collectCoverageFrom": [
 			"**/*.js",
 			"!node_modules/**",
+			"!streams/api/**",
 			"!test-coverage/**"
 		],
 		"coverageDirectory": "test-coverage",
