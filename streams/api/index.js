@@ -1,12 +1,13 @@
 "use strict";
 
 const
+	countInPersistanceAndGetIsMaximumExceeded = require("../countInPersistanceAndGetIsMaximumExceeded"),
 	readIdentifiersFromEvent = require("./readIdentifiersFromEvent"),
 	throwErrorWhenIdentifiersInvalid = require("./throwErrorWhenIdentifiersInvalid");
 
 /** @type {import("aws-lambda").APIGatewayProxyHandler} */
 module.exports.handle =
-	event => {
+	async event => {
 		const identifiers = readIdentifiersFromEvent(event);
 
 		throwErrorWhenIdentifiersInvalid(
@@ -14,9 +15,21 @@ module.exports.handle =
 		);
 
 		return (
-			Promise.resolve({
-				body: null,
-				statusCode: 200,
-			})
+			{
+				body:
+					null,
+				statusCode:
+					getStatusCodeForIsMaximumExceeded(
+						await countInPersistanceAndGetIsMaximumExceeded(
+							identifiers,
+						),
+					),
+			}
 		);
 	};
+
+function getStatusCodeForIsMaximumExceeded(
+	isMaximumExceeded,
+) {
+	return isMaximumExceeded ? 403 : 200;
+}
