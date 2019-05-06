@@ -1,11 +1,14 @@
 {
   "devDependencies": {
+    "@types/jest": "24.0.12",
     "cspell": "3.2.8",
-    "eslint": "5.16.0"
+    "eslint": "5.16.0",
+    "jest": "24.8.0"
   },
   "scripts": {
-    "all": "npm run spellcheck && npm run lint",
+    "all": "npm run spellcheck && npm run lint && npm run test",
     "lint": "npx eslint .",
-    "spellcheck": "find -type f \\( -name \"*.js\" -or -name \"*.md\" \\) ! -path \"./node_modules/**/*\" -exec npx cspell --config cspell.json {} +"
+	"spellcheck": "find -type f \\( -name \"*.js\" -or -name \"*.md\" \\) ! -path \"./node_modules/**/*\" -exec npx cspell --config cspell.json {} +",
+	"test": "npx jest"
   }
 }
