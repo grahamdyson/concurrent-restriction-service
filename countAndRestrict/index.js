@@ -1,21 +1,61 @@
 module.exports =
-	({
-		currentIdentifier,
+	(/** @type {import("./Parameter.d")} */{
+		currentIdentifiers,
 		identifierToWatch,
+		maximumCount,
 	}) => {
 		return (
 			whenNoCurrent()
+			||
+			whenToWatchIsInCurrent()
+			||
+			whenMaximumNotExceeded()
 			||
 			asMaximumExceeded()
 		);
 
 		function whenNoCurrent() {
 			return (
-				!currentIdentifier
+				hasNoCurrent()
 				&&
 				{
-					currentIdentifier: identifierToWatch,
+					currentIdentifiers: [ identifierToWatch ],
 					isMaximumExceeded: false,
+				}
+			);
+
+			function hasNoCurrent() {
+				return (
+					!currentIdentifiers
+					||
+					!currentIdentifiers.length
+				);
+			}
+		}
+
+		function whenToWatchIsInCurrent() {
+			return (
+				currentIdentifiers.includes(identifierToWatch)
+				&&
+				{
+					currentIdentifiers,
+					isMaximumExceeded: false,
+				}
+			);
+		}
+
+		function whenMaximumNotExceeded() {
+			return (
+				currentIdentifiers.length < maximumCount
+				&&
+				{
+					currentIdentifiers:
+						[
+							...currentIdentifiers,
+							identifierToWatch,
+						],
+					isMaximumExceeded:
+						false,
 				}
 			);
 		}
@@ -23,7 +63,7 @@ module.exports =
 		function asMaximumExceeded() {
 			return (
 				{
-					currentIdentifier,
+					currentIdentifiers,
 					isMaximumExceeded: true,
 				}
 			);
