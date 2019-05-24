@@ -7,6 +7,7 @@
 		"@types/jest": "24.0.12",
 		"cspell": "3.2.8",
 		"eslint": "5.16.0",
+		"eunice": "1.4.1",
 		"jest": "24.8.0",
 		"typescript": "3.4.5"
 	},
@@ -28,7 +29,7 @@
 		}
 	},
 	"scripts": {
-		"all": "npm run spellcheck && npm run lint && npm run typescript && npm run test",
+		"all": "npm run spellcheck && npm run lint && npm run typescript && npm run test && npx eunice --outputFilePrefix=docs/eunice",
 		"lint": "npx eslint .",
 		"spellcheck": "find -type f \\( -name \"*.js\" -or -name \"*.md\" -or -name \"*.d.ts\" \\) ! -path \"./test-coverage/**/*\" ! -path \"./node_modules/**/*\" -exec npx cspell --config cspell.json {} +",
 		"test": "npx jest",

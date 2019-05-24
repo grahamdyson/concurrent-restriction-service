@@ -1,0 +1,114 @@
+id: streams
+items:
+  - - id: api
+      items:
+        - - id: delete
+            type: file
+            items:
+              id: delete
+              dependsUpon:
+                - readIdentifiersFromEvent
+                - removeFromPersistance
+                - throwErrorWhenIdentifiersInvalid
+          - id: post
+            type: file
+            items:
+              - - id: post
+                  dependsUpon:
+                    - countInPersistanceAndGetIsMaximumExceeded
+                    - getStatusCodeForIsMaximumExceeded
+                    - readIdentifiersFromEvent
+                    - throwErrorWhenIdentifiersInvalid
+              - - getStatusCodeForIsMaximumExceeded
+        - - id: readIdentifiersFromEvent
+            type: file
+          - id: throwErrorWhenIdentifiersInvalid
+            type: file
+            items:
+              - - id: throwErrorWhenIdentifiersInvalid
+                  dependsUpon:
+                    - getMessageForStreamWhenError
+                    - getMessageForUserWhenError
+                    - throwErrorWhenAnyMessages
+              - - getMessageForStreamWhenError
+                - getMessageForUserWhenError
+                - id: throwErrorWhenAnyMessages
+                  dependsUpon: Error
+  - - id: countInPersistanceAndGetIsMaximumExceeded
+      type: file
+      items:
+        id: countInPersistanceAndGetIsMaximumExceeded
+        dependsUpon:
+          - countAndRestrict
+          - createUserStreamsPersistance
+          - persist
+          - retrieveStreamIdentifiersForUserIdentifier
+          - updatedStreamIdentifiers
+    - id: removeFromPersistance
+      type: file
+      items:
+        id: removeFromPersistance
+        dependsUpon:
+          - createUserStreamsPersistance
+          - persist
+          - retrieveStreamIdentifiersForUserIdentifier
+  - - id: countAndRestrict
+      type: file
+      items:
+        - - id: test
+            type: file
+            dependsUpon:
+              - countAndRestrict
+              - currentIdentifiers
+              - describe
+              - expect
+              - identifierToWatch
+              - test
+            items:
+              - id: identifierToWatch
+                type: variable
+              - id: currentIdentifiers
+                type: variable
+              - id: currentIdentifiers
+                type: variable
+              - id: currentIdentifiers
+                type: variable
+              - expect
+              - test
+        - - id: countAndRestrict
+            dependsUpon:
+              - asMaximumExceeded
+              - whenMaximumNotExceeded
+              - whenNoCurrent
+              - whenToWatchIsInCurrent
+            items:
+              - - id: whenNoCurrent
+                  dependsUpon: hasNoCurrent
+                  items: hasNoCurrent
+                - id: whenToWatchIsInCurrent
+                  dependsUpon:
+                    - currentIdentifiers
+                    - identifierToWatch
+                - whenMaximumNotExceeded
+                - asMaximumExceeded
+              - - id: currentIdentifiers
+                  type: parameter
+                - id: identifierToWatch
+                  type: parameter
+    - id: createUserStreamsPersistance
+      type: file
+      items:
+        - - id: createUserStreamsPersistance
+            items:
+              - - id: persist
+                  dependsUpon:
+                    - TableName
+                    - documentClient
+                - id: retrieveStreamIdentifiersForUserIdentifier
+                  dependsUpon:
+                    - TableName
+                    - documentClient
+              - - id: documentClient
+                  type: variable
+        - - id: TableName
+            type: variable
